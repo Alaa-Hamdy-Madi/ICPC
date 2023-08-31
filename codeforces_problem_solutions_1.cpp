@@ -489,6 +489,94 @@ int IQ_test()
     }
    
 }
+double Vanya_and_Lanterns()
+{
+    int n ,l;
+    cin>>n>>l;
+    vector <int> arr(n,0);
+    for(int i=0; i<n; i++)
+    {
+        cin>>arr.at(i);
+    }
+    sort(arr.begin(), arr.end());
+    int max_diff=0;
+
+    for(int i=0; i<n-1; i++)
+    {
+        max_diff= max (max_diff, arr.at(i+1)-arr.at(i));
+    }
+    double min_light_radius = max( max_diff / 2.0, max(double(arr[0]), double(l - arr[n - 1])));
+    return min_light_radius;
+}
+int BerSU_Ball()
+{
+    int n,m; 
+    cin>>n;
+    vector<int> arrn(n,0);
+    for(int i=0 ; i<n;i++)
+    {
+        cin>>arrn.at(i);
+    }
+
+    cin>>m;
+    vector<int> arrm(m,0);
+    for(int i=0 ; i<m;i++)
+    {
+        cin>>arrm.at(i);
+    }
+
+    int count=0;
+
+    sort(arrn.begin(), arrn.end());
+    sort(arrm.begin(), arrm.end());
+   
+    for (int i : arrm)
+    {
+        if (std::count(arrn.begin(), arrn.end(), i-1))
+        {
+            arrn.erase(std::find(arrn.begin(), arrn.end(), i-1));
+            count++;
+        }
+        else  if (std::count(arrn.begin(), arrn.end(), i))
+        {
+            arrn.erase(std::find(arrn.begin(), arrn.end(), i));
+            count++;
+        }
+        else  if (std::count(arrn.begin(), arrn.end(), i+1))
+        {
+            arrn.erase(std::find(arrn.begin(), arrn.end(), i+1));
+            count++;
+        }
+    }
+    return count;
+}
+void Worms()
+{
+    int n,m;
+    cin>>n;
+    vector <int> arrn(n,0);
+    for (int i=0; i<n;i++)
+    {
+        cin>>arrn.at(i);
+    }
+
+    cin>>m;
+    vector <int> arrm(m,0);
+    for (int i=0; i<m;i++)
+    {
+        cin>>arrm.at(i);
+    }
+
+    vector<double> sum( arrn.size() );
+    partial_sum( arrn.begin(), arrn.end(), sum.begin() );
+    for (int i :arrm)
+    {
+        auto pos= std::lower_bound(sum.begin(), sum.end(), i);
+        cout<< (pos - sum.begin())+1<<endl;
+    }
+}
+
+
 
 
 
@@ -514,6 +602,9 @@ int main()
     //t_primes();
     //cout<<Insomnia_cure();
     //cout<<IQ_test();
+    //cout<<Vanya_and_Lanterns();
+    //cout <<BerSU_Ball();
+    //Worms();
     return 0;
 }
 
