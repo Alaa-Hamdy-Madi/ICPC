@@ -2,6 +2,8 @@
 #include <string>
 #include <cmath>
 #include <bits/stdc++.h>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 int Tram()
@@ -265,11 +267,228 @@ int Hit_the_Lottery()
     }
     return count;
 }
-string Registration_system()
+string Mishka_and_Game()
 {
+    int n; cin>>n;
+    int a;int b;
+    int Mishka=0;
+    int Chris=0;
+    for (int i =0; i<n; i++)
+    {
+        cin>>a>>b;
+        if (a>b)
+        {Mishka++;}
+        else if(b>a)
+        {Chris++;}
+    }
+
+    if(Chris>Mishka)
+    {return "Chris";}
+    else if (Mishka >Chris)
+    {return"Mishka";}
+    else
+    {return"Friendship is magic!^^";}
+}
+string Dragons()
+{
+    int s;int n;
+    cin>>s >> n;
+    vector <int> arrx(n,0);
+    vector <int> arry(n,0);
+    for (int i=0; i<n;i++)
+    {
+        cin >>arrx.at(i);
+        cin >>arry.at(i);
+    }
+    while (!arrx.empty())
+    {
+        auto min = std::min_element(arrx.begin(), arrx.end());
+        int min_index = distance(arrx.begin(), min); 
+        if (s > *min)
+        {
+            arrx.erase(min);
+            s=s+arry.at( min_index);
+            arry.erase(arry.begin() + min_index); 
+        }
+        else
+        {
+            return "NO";
+        }
+    }
+    return "YES";
+}
+/*int Olya_and_Game_with_Arrays()
+{
+    int test_cases; cin>>test_cases;
+
+    for (int i=0; i<test_cases; i++)
+    {
+        int number_of_arrays; cin>>number_of_arrays;
+
+        for (int j=0; j<number_of_arrays; j++)
+        {
+            int number_of_elements; cin >>number_of_elements;
+            vector <int> arr(4,50);
+            for (int h=0; h<number_of_elements; h++)
+            {
+                cout<<"fghj";
+            }
+        }
+    }
+}*/
+string  I_Wanna_Be_the_Guy()
+{
+    int n; cin>>n;
+    int x; cin>>x;
+    vector<int> arrx(x,0);
+    for(int i=0 ; i<x; i++ )
+    {
+        cin>>arrx.at(i);
+    }
+
+    int y; cin>>y;
+    vector<int> arry(y,0);
+    for(int i=0 ; i<y; i++ )
+    {
+        cin>>arry.at(i);
+    }
+
+    arrx.insert (arrx.end(),arry.begin(),arry.end());
+
+    for(int i=1 ; i<=n; i++ )
+    {
+        if (!std::count(arrx.begin(), arrx.end(), i))
+        {return "Oh, my keyboard!";}
+    }
+    return "I become the guy.";
+    
 
 }
-
+int Buy_a_Shovel()
+{
+    int k;int r;
+    cin>>k>>r;
+    int i=1;
+    while (true)
+    {
+        if(i*k%10==0 || i*k%10==r )
+        {
+            return i++;
+        }
+        i++;
+    }
+}
+long long Xenia_and_Ringroad()
+{
+    int n; int m;
+    cin>>n>>m;
+    long long num;
+    long long time;
+    long long pos=1;
+    for(int i=0 ; i<m ;i++)
+    {
+        cin>>num;
+        if(i==0)
+        { 
+            time=num-1;
+            pos=num;
+        }
+        else if (num<pos) 
+        {
+            time+=((n-pos)+num);
+            pos=num;
+        }
+        else
+        {
+            time+=(num-pos);
+            pos=num;
+        }
+    }
+    return time;
+}
+void t_primes()
+{
+    int n; cin>>n;
+    int t;
+    int divisors=0;
+    for (int i=0; i<n;i++)
+    {
+        cin>>t;
+        for (int j=1; j<=sqrt(t) ;j++)
+        {
+            if( t==j*j)
+            divisors++;
+            else if(t%j==0)
+            divisors+=2;
+            if (divisors>3)
+            {
+                cout<<"NO"<<endl;
+                break;
+            }
+            else if (divisors==3)
+            { 
+                cout<<"YES"<<endl;
+                break;
+            }
+        }
+        if (divisors<3)
+        cout<<"NO"<<endl;
+        
+        divisors=0;
+ 
+    }
+ 
+}
+int Insomnia_cure()
+{
+    vector <int> arr1 (4,0);
+    
+    for (int i=0; i<4;i++)
+    {
+        cin>>arr1.at(i);
+    }
+    
+    int d;
+    cin >>d;
+    vector <int> arr (d,0);
+    for (int i=0; i<4;i++)
+   { 
+       for (int j=arr1.at(i)-1; j<d;j+=arr1.at(i))
+        {
+            arr.at(j)=1;
+        }
+   }
+   
+    return d-(std::count(arr.begin(), arr.end(), 0));
+}
+int IQ_test()
+{
+    int n; cin>>n;
+    vector <int> arr(n,0);
+    int d;
+    for(int i=0 ;i<n; i++)
+    {
+        cin>>d;
+        if (d%2==0)
+        {
+            arr.at(i)=0;
+        }
+        else
+        {
+            arr.at(i)=1; 
+        }
+    }
+    
+    if (std::count(arr.begin(), arr.end(), 0)==1)
+    {
+        return  (std::find(arr.begin(), arr.end(), 0)- arr.begin())+1;
+    }
+    else 
+    {
+        return  (std::find(arr.begin(), arr.end(), 1)- arr.begin())+1;
+    }
+   
+}
 
 
 
@@ -283,9 +502,18 @@ int main()
     //cout <<Beautiful_Year();
     //cout<< Games();
     //cout<<Puzzles();
-    cout<<Lucky_Division();
+    //cout<<Lucky_Division();
     //cout<<Amusing_Joke();
     //cout<<Hit_the_Lottery();
+    //cout<<Mishka_and_Game();
+    //cout <<Dragons();
+    //cout << Olya_and_Game_with_Arrays();
+    //cout <<I_Wanna_Be_the_Guy();
+    //cout <<Buy_a_Shovel();
+    //cout <<Xenia_and_Ringroad();
+    //t_primes();
+    //cout<<Insomnia_cure();
+    //cout<<IQ_test();
     return 0;
 }
 
