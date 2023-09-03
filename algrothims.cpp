@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 using namespace std;
 
 void swap(int *x,int*y)
@@ -87,6 +88,27 @@ int binary_search(int arr[],int size,int x)
     return (x==arr[i]) ? i : -1;
 }
 
+
+void generateSubsequences(const std::vector<int>& input, std::vector<int>& current, int index, std::vector<std::vector<int>>& subsequences) {
+    // Base case: when we reach the end of the input vector
+    if (index == input.size()) {
+        // Store the current subsequence in the result vector
+        subsequences.push_back(current);
+        return;
+    }
+
+    // Exclude the current element from the subsequence
+    generateSubsequences(input, current, index + 1, subsequences);
+
+    // Include the current element in the subsequence
+    current.push_back(input[index]);
+    generateSubsequences(input, current, index + 1, subsequences);
+
+    // Backtrack by removing the last element to explore other possibilities
+    current.pop_back();
+}
+
+
 int main ()
 {
     int arr[4]={7,2,5,1};
@@ -95,4 +117,20 @@ int main ()
     print_arr(arr,4);
     cout << linear_search(arr,4,5)<<endl;
     cout << binary_search(arr,4,5)<<endl;
+
+
+    vector<int> input = {1, 2, 3};
+    vector<int> current;
+    vector<vector<int>> subsequences;
+
+    generateSubsequences(input, current, 0, subsequences);
+
+    cout << "All generated subsequences:" <<endl;
+    for (const vector<int>& subsequence : subsequences) {
+        for (int num : subsequence) {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+
 }

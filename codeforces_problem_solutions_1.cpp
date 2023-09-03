@@ -2,6 +2,7 @@
 #include <string>
 #include <cmath>
 #include <bits/stdc++.h>
+#include <string.h>
 #include <vector>
 #include <algorithm>
 using namespace std;
@@ -189,6 +190,7 @@ int Puzzles()
     }
     return minDifference;
 }
+
 bool is_lucky(string num)// it's not a problem , its just for the next problem 
 {
     bool flag =true;
@@ -224,6 +226,7 @@ string Lucky_Division()
         return "NO";
     }
 }
+
 string Amusing_Joke()
 {
     string line_1;  string line_2;  string line_3;
@@ -317,7 +320,7 @@ string Dragons()
     }
     return "YES";
 }
-/*int Olya_and_Game_with_Arrays()
+/*int Olya_and_Game_with_Arrays() //not complete
 {
     int test_cases; cin>>test_cases;
 
@@ -552,33 +555,166 @@ int BerSU_Ball()
 }
 void Worms()
 {
-    int n,m;
-    cin>>n;
-    vector <int> arrn(n,0);
-    for (int i=0; i<n;i++)
+    int n, m;
+    scanf("%d", &n);
+    vector<int> arrn(n, 0);
+    for (int i = 0; i < n; i++)
     {
-        cin>>arrn.at(i);
+        scanf("%d", &arrn.at(i));
     }
-
-    cin>>m;
-    vector <int> arrm(m,0);
-    for (int i=0; i<m;i++)
+ 
+    scanf("%d", &m);
+    vector<int> arrm(m, 0);
+    for (int i = 0; i < m; i++)
     {
-        cin>>arrm.at(i);
+        scanf("%d", &arrm.at(i));
     }
-
-    vector<double> sum( arrn.size() );
-    partial_sum( arrn.begin(), arrn.end(), sum.begin() );
-    for (int i :arrm)
+ 
+    vector<int> sum(arrn.size());
+    partial_sum(arrn.begin(), arrn.end(), sum.begin());
+    for (int i : arrm)
     {
-        auto pos= std::lower_bound(sum.begin(), sum.end(), i);
-        cout<< (pos - sum.begin())+1<<endl;
+        auto pos = lower_bound(sum.begin(), sum.end(), i);
+        printf("%d\n", (int)(pos - sum.begin()) + 1);
     }
 }
+void Alternating_Subsequence()
+{
+    int tc; cin >> tc;
+    while (tc--) {
+        int n; cin >> n;
+        long long sum = 0;
+        int Max = 0;
+        int flag = -1;
+        for (int i = 0; i < n; i++) {
+            int x; cin >> x;
+            if (flag != (x >= 0)) {
+                flag = (x >= 0);
+                sum += Max; Max = x;
+            } else
+                Max = max(Max, x);
+        }
+        sum += Max;
+        cout << sum << endl;
+    }
+}
+void print_sum_of_max_size_alternating_sequence()
+{
+    int t=0;cin >>t;
+    int n=0;
+    vector <long long> arr ;
+    long long a=0;
+    for(int i=0; i<t;i++) 
+    {
+        cin>>n;
+        for (int j=0; j<n ; j++)
+        {
+            cin>>a;arr.push_back(a); 
+        }
 
+        int start=0;
+        int index=start;
+        int count =1;
+        vector <int> counter (arr.size(),0);
+        while (index <arr.size()-1)
+        {
+            while (arr.at(index)/arr.at(index+1)<0)
+            {
+                count++;
+                index++;
+            }
+            counter.at(start)=count;
+            start=index;
+        }
+        auto max =std::max_element(counter.begin(), counter.end());
+        int sum=0;
+        for (int h=0; h< *max;h++)
+        {
+            sum+= arr.at((max-counter.begin())+h);
+        }
+        cout<<sum<<endl;
+    }
 
+}
 
+void generateSubsequences(const vector<int>& input, vector<int>& current, int index, vector<vector<int>>& subsequences , int x) {
+    // Base case: when we reach the end of the input vector
+    if (current.size() == x) {
+        subsequences.push_back(current);
+        return;
+    }
+    if (index == input.size()) {
+        return;
+    }
 
+    // Exclude the current element from the subsequence
+    generateSubsequences(input, current, index + 1, subsequences,x);
+
+    // Include the current element in the subsequence
+    current.push_back(input[index]);
+    generateSubsequences(input, current, index + 1, subsequences,x);
+
+    // Backtrack by removing the last element to explore other possibilities
+    current.pop_back();
+}
+void Odd_Selection()
+{
+    int t; scanf("%d",&t);
+    for (int i =0; i<t;i++)
+    {
+        int n,x; scanf("%d %d",&n,&x);
+        vector <int> input (n,0);
+        for (int j=0; j<n;j++)
+        {
+            scanf("%d",&input.at(j));
+        }
+
+        vector<int> current;
+        vector<vector<int>> subsequences;
+        generateSubsequences(input, current, 0, subsequences,x);
+
+        bool found = false;
+        for (vector<int>& subsequence : subsequences) 
+        {
+            if(accumulate(subsequence.begin(), subsequence.end(), 0)%2 != 0)
+            {
+                cout<<"YES"<<endl;
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            cout << "NO" << endl;
+        }
+    }
+}
+void Odd_Selection_fast_sultion()
+{
+	int t;
+	cin >> t;
+	while (t--) {
+		int n, k;
+		cin >> n >> k;
+		vector <int> a(n);
+		for (int i = 0; i < n; i++)
+			cin >> a[i];
+		int cnt0 = 0, cnt1 = 0;
+		for (int i = 0; i < n; i++) {
+			if (a[i] % 2 == 0) cnt0++;
+			else cnt1++;
+		}
+		bool tf = false;
+		for (int odd = 1; odd <= cnt1; odd += 2) {
+			int even = k - odd;
+			if (even < 0) continue;
+			if (even <= cnt0 && odd <= cnt1)
+				tf = true;
+		}
+		if (tf) cout << "Yes\n";
+		else cout << "No\n";
+	}
+}
 
 int main()
 {
@@ -605,6 +741,8 @@ int main()
     //cout<<Vanya_and_Lanterns();
     //cout <<BerSU_Ball();
     //Worms();
+    //Alternating_Subsequence();
+    //Odd_Selection();
     return 0;
 }
 
