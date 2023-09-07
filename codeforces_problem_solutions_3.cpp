@@ -120,11 +120,13 @@ std::unordered_map<char, std::vector<int>> freq(const std::string& word)
     return charIndices;
 }
 
+
 void q__5()
 {
     string word;
     cin>>word;
     unordered_map<char, vector<int>> frequencyMap = freq(word);
+    unordered_map<char, vector<int>> frequency_odd_Map ;
     int odd=0,swap=0;
 
     
@@ -133,6 +135,7 @@ void q__5()
         if((pair.second).size()%2==1)
         {
             odd++;
+            frequency_odd_Map[pair.first]=pair.second;
         }
     }
 
@@ -164,7 +167,15 @@ void q__5()
         }
         cout<<word;
         cout<<swap<<"\n";
+
+         for (const auto& pair : frequency_odd_Map)
+         {
+            cout<<(pair.first).first<<"\n";
+            cout<<(pair.first).second<<"\n";
+         }
         return;
+
+
     }      
 }
  

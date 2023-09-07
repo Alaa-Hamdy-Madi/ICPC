@@ -314,6 +314,89 @@ void q_5_2020(){
         }
     }
 
+
+void q_1_2022(){
+    int n;
+    cin>>n;
+    cout<<n-1;  
+}
+int q_2_2022(){
+    int n,k;
+    scanf("%d %d",&n,&k) ;
+    int arr[n]; 
+    for (int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+     for (int j=0; j< n-k ; j++) 
+        { 
+            if (arr[j+k]<arr[j])
+            {
+                swap(arr[j+k],arr[j]);
+                
+            }
+            else if (arr[j-k]>arr[j])
+            {
+                swap(arr[j-k],arr[j]);
+                
+            }
+            
+        }
+        for (int i=0;i<n-1;i++)
+        {
+            cout<<arr[i];
+            if (arr[i]>arr[i+1]){
+                cout<<"NO";
+                return 0;
+            }
+        }
+
+    cout<<"YES";
+    return 0;
+}
+void q_3_2022(){
+int cases,n;
+    cin >>cases;
+    while(cases--)
+    {
+        cin>>n;
+        int arr[n];
+        for (int i=0;i<n;i++){
+            cin>>arr[i];
+        }
+        int k=n/2;
+        cout<<arr[k]<<"\n";
+    }
+}
+void q_4_2022(){
+    float cases,x,n,s;
+    float pi=3.1415927;
+    cin>>cases;
+    while(cases--){
+        cin>>n>>x>>s;
+        cout<<(x*s)/(2*pi*n);
+
+    }
+}
+void q_5_2022(){
+    int cases,num;
+    cin>>cases;
+    while (cases--)
+    {
+        cin>>num;
+        int num1 =((num+2)*2)-1;
+        if (num%2==0)
+        {
+            cout<<num1<<"\n";
+        }
+        else{
+            cout<<0-num1<<"\n";
+        }
+    }
+    
+} 
+ 
+ 
     int main() {
     /*q_1_2013()
     q_2_2013()
@@ -325,8 +408,53 @@ void q_5_2020(){
     q_3_2020()
     q_4_2020()
     q_5_2020()*/
-        
-    ios_base::sync_with_stdio(false);    
-    
-    return 0;
+     
+    ios_base::sync_with_stdio(false); 
+    int cases,l,k,x,y,now;
+    cin>>cases;
+    while(cases--)
+    {
+        cin>>l>>k>>x>>y;
+        int arr[2];
+        arr[0]=min(x,y);
+        arr[1]=max(x,y);
+        now=arr[0];
+        int c=1;
+    for (int i=0;i<2;i++)
+    {
+        int v=l;
+        for (int j=0;j<l;j++)
+        {  if (i==0)
+            {
+                if (now+k<max(x,y) && j==l-1){
+                    c++;
+                }
+                if (now+k<max(x,y))
+                {
+                    c=c+k;
+                    now=now+k;
+                    cout<<c<<endl;
+                }
+                else if (now+k==max(x,y)){
+                    c=c+k;
+                    cout<<c<<endl;
+                    break;
+                }
+                else if (now+k>max(x,y)){
+                    c=c+(max(x,y)-c);
+                    cout<<c<<endl;
+                    break;
+                }
+            }
+            
+            else{
+                c=c+k;
+                cout<<c<<endl;
+            }
+        }
+       now=arr[1]  ;
+       
+    } 
+    cout<<c<<"\n"; }  
+
 }
