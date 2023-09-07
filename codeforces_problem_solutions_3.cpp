@@ -84,30 +84,6 @@ void DZY_Loves_Chessboard()
         std::cout << std::endl;
     }
 }
-void XXXXX()
-{
-    int t,n,x,a,sum=0; scanf ("%d",t);
-    vector<int> arr;
-    while(t--)
-    {
-        scanf ("%d %d",n,x);
-        for (int i=0;i<n;i++)
-        {
-            scanf ("%d",arr[n]);
-            sum+=arr[n];
-        }
-
-        while (sum%x==0 && n--)
-        {
-            sum-=arr[arr.size()-(n+1)];
-        }
-        if (n!=0)
-        printf("%d",n);
-        else
-        printf("%d",-1);
-    }
-
-}
 void Not_Equal_on_a_Segment()
 {
     int n,m,l,r,x,pos; scanf("%d %d",&n,&m);
@@ -147,15 +123,11 @@ std::unordered_map<char, std::vector<int>> freq(const std::string& word)
 void q__5()
 {
     string word;
-    unordered_map<char, std::vector<int>> frequencyMap(word.size());
-    int odd=0;
     cin>>word;
-    if (word.size()%2!=1)
-    {
-        cout<<"impossible1";
-        return;
-    } 
-    frequencyMap= freq( word);
+    unordered_map<char, vector<int>> frequencyMap = freq(word);
+    int odd=0,swap=0;
+
+    
     for (const auto& pair : frequencyMap)
     {
         if((pair.second).size()%2==1)
@@ -163,25 +135,37 @@ void q__5()
             odd++;
         }
     }
-    if(odd!=1)
+
+    if (word.size()%2==0 && odd!=0)
     {
-        cout<<"impossible2";
+        cout<<"impossible";
+        return;
+    }
+    else if(word.size()%2==1 && odd!=1)
+    {
+        cout<<"impossible";
         return;
     }
     else
     {
-       /* for( int i=0;i< word.size()/2;i++ )
+
+        for( int i=0;i< word.size()/2;i++ )
         {
             if (word[i]!=word[ word.size()-i])
             {
-
+                int max_index = frequencyMap[word[i]].back();
+                swap+= (word.size()-i)-max_index;
+                char removedChar = word[max_index];
+                word.erase(max_index, 1);
+                word.insert(word.size()-i, 1, removedChar);
+                cout<<word<<"\n";
+                frequencyMap= freq( word);
             }
-        }*/
-        cout<<"can";
+        }
+        cout<<word;
+        cout<<swap<<"\n";
         return;
-    }
-
-        
+    }      
 }
  
 
